@@ -4,13 +4,40 @@ module.exports.getAllReviews = async (req, res) => {
   const allReviews = await Review.find({});
   return res.status(200).send({
     message: 'data retrived succsessfully!',
+    responseCode: 100,
     data: allReviews,
   });
 };
 
+module.exports.getReview = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(200).send({
+      message: 'Id is missing!',
+      responseCode: 101,
+    });
+  }
+  Review.findById(id, (findReviewError, foundReview) => {
+    if (findReviewError) {
+      console.log('error occured while finding the review');
+      return res.status(200).send({
+        message: 'error occured while finding the review',
+        responseCode: 102,
+        error: findReviewError,
+      });
+    }
+    console.log('review', foundReview);
+    return res.status(200).send({
+      message: 'data retrived succsessfully!',
+      responseCode: 100,
+      data: foundReview,
+    });
+  });
+};
+
 module.exports.createReview = async (req, res) => {
-  const { title, content, date } = req.body;
-  if (!title || !content || !date) {
+  const { title, content, dateTime } = req.body;
+  if (!title || !content || !dateTime) {
     return res.status(200).send({
       message: 'all feilds are important',
       responseCode: 101,
@@ -21,14 +48,15 @@ module.exports.createReview = async (req, res) => {
     {
       title,
       content,
-      date,
+      dateTime,
     },
     (err, result) => {
       if (err) {
-        console.log('error occured while creating the review');
+        console.log('error occured while creating the review', err);
         return res.status(200).send({
           message: 'error occured while creating the review',
           responseCode: 102,
+          error: err,
         });
       }
 
@@ -79,7 +107,8 @@ module.exports.updateReview = async (req, res) => {
 
 module.exports.deleteReview = async (req, res) => {
   const { id } = req.params;
-  Review.deleteOne(id, (findReviewError) => {
+  console.log('id', id);
+  Review.deleteOne({ _id: id }, (findReviewError) => {
     if (findReviewError) {
       console.log('error occured while finding the review');
       return res.status(200).send({

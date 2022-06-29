@@ -4,7 +4,6 @@ const reviewSchema = new mongoose.Schema(
   {
     id: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
     },
     title: {
       type: String,
