@@ -1,0 +1,25 @@
+{
+  "name": "live-review-back-end",
+  "version": "1.0.0",
+  "description": "live reviews",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manishkini/live-review-back-end.git"
+  },
+  "author": "Manish Kini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manishkini/live-review-back-end/issues"
+  },
+  "homepage": "https://github.com/Manishkini/live-review-back-end#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.1"
+  }
+}
