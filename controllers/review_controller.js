@@ -19,14 +19,12 @@ module.exports.getReview = async (req, res) => {
   }
   Review.findById(id, (findReviewError, foundReview) => {
     if (findReviewError) {
-      console.log('error occured while finding the review');
       return res.status(200).send({
         message: 'error occured while finding the review',
         responseCode: 102,
         error: findReviewError,
       });
     }
-    console.log('review', foundReview);
     return res.status(200).send({
       message: 'data retrived succsessfully!',
       responseCode: 100,
@@ -52,7 +50,6 @@ module.exports.createReview = async (req, res) => {
     },
     (err, result) => {
       if (err) {
-        console.log('error occured while creating the review', err);
         return res.status(200).send({
           message: 'error occured while creating the review',
           responseCode: 102,
@@ -79,7 +76,6 @@ module.exports.updateReview = async (req, res) => {
 
   Review.findById(id, async (findReviewError, foundReview) => {
     if (findReviewError) {
-      console.log('error occured while finding the review');
       return res.status(200).send({
         message: 'error occured while finding the review',
         responseCode: 102,
@@ -88,7 +84,6 @@ module.exports.updateReview = async (req, res) => {
     }
 
     if (!foundReview) {
-      console.log('review not found');
       return res.status(200).send({
         message: 'review not found',
         responseCode: 103,
@@ -107,10 +102,8 @@ module.exports.updateReview = async (req, res) => {
 
 module.exports.deleteReview = async (req, res) => {
   const { id } = req.params;
-  console.log('id', id);
   Review.deleteOne({ _id: id }, (findReviewError) => {
     if (findReviewError) {
-      console.log('error occured while finding the review');
       return res.status(200).send({
         message: 'error occured while finding the review',
         responseCode: 102,
